@@ -1,6 +1,7 @@
 import React from "react"; 
 import ProduceList from "./ProduceList"
 import MonthSelectionForm from "./ProduceMonthSelectionForm";
+import { v4 } from 'uuid';
 
 class ProduceController extends React.Component { 
   
@@ -9,9 +10,15 @@ class ProduceController extends React.Component {
     this.state = {
     formVisibleOnPage:true,
     thisMonth: null,
-    thisMonthProduceList: []
+    thisMonthProduceList: {}
     };
   };
+
+//   handleAddingNewProduceToList = (newProduce) => {
+//    const newMonthProduceList = this.state.thisMonthProduceList.concat(newTicket);
+//    this.setState({thisMonthProduceList: newMonthProduceList,
+//                   formVisibleOnPage: false});
+//   }
 
   handleAddingMonthSelectionToMonth = (selectedMonth) => {
     
@@ -291,19 +298,34 @@ class ProduceController extends React.Component {
       }
     }
 
-    const newProduceList = showState(selectedMonth)(availableProduce);
+    const newProduceList = {
+      month: availableProduce[selectedMonth].month,
+      selection: showState(selectedMonth)(availableProduce),
+      id: v4() };
     
     this.setState({
-      thisMonth: selectedMonth,
-      thisMonthProduceList: newProduceList
+      thisMonth: availableProduce[selectedMonth].month,
+      thisMonthProduceList: newProduceList,
+      formVisibleOnPage: false
     });
   }
 
   render(){
-    let currentlyVisibleState = <MonthSelectionForm onNewSelectedMonth = {this.handleAddingMonthSelectionToMonth}/>
-    // if (this.state.formVisbileOnPage){
-    //   currentlyVisibleState = <MonthSelectionForm onNewSelectedMonth = {this.handleAddingMonthSelectionToMonth}/>
-    // }
+      let currentlyVisibleState = null;
+      if (this.state.formVisibleOnPage) {
+         currentlyVisibleState = <MonthSelectionForm onNewSelectedMonth = {this.handleAddingMonthSelectionToMonth}/>
+         // buttonText = "Return to Produce List"
+      } 
+      else {
+         currentlyVisibleState = <ProduceList produceList = {this.state.thisMonthProduceList}/>
+         // buttonText = "Return to Form"
+      }
+
+   //  let currentlyVisibleState = <MonthSelectionForm onNewSelectedMonth = {this.handleAddingMonthSelectionToMonth}/>
+   //  // if (this.state.formVisbileOnPage){
+   //  //   currentlyVisibleState = <MonthSelectionForm onNewSelectedMonth = {this.handleAddingMonthSelectionToMonth}/>
+   //  // }
+
     return(
       <React.Fragment>
         {currentlyVisibleState}

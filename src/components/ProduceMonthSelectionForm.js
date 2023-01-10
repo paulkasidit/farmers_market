@@ -1,11 +1,14 @@
 import React from "react"; 
+import { v4 } from 'uuid';
 
 function MonthSelectionForm(props){
 
   function handleMonthSelectionFormSubmission(event){
     event.preventDefault();
-    let selectedMonth = document.getElementById("month");
-    return props.onNewSelectedMonth(selectedMonth.value);
+    // let selectedMonth = document.getElementById("month");
+    props.onNewSelectedMonth(event.target.month.value);
+
+    console.log(event.target.month.value)
   }
 
   return (
