@@ -14,12 +14,6 @@ class ProduceController extends React.Component {
     };
   };
 
-//   handleAddingNewProduceToList = (newProduce) => {
-//    const newMonthProduceList = this.state.thisMonthProduceList.concat(newTicket);
-//    this.setState({thisMonthProduceList: newMonthProduceList,
-//                   formVisibleOnPage: false});
-//   }
-
   handleAddingMonthSelectionToMonth = (selectedMonth) => {
     
     const availableProduce = [  
@@ -320,11 +314,6 @@ class ProduceController extends React.Component {
          currentlyVisibleState = <ProduceList produceList = {this.state.thisMonthProduceList}/>
          // buttonText = "Return to Form"
       }
-
-   //  let currentlyVisibleState = <MonthSelectionForm onNewSelectedMonth = {this.handleAddingMonthSelectionToMonth}/>
-   //  // if (this.state.formVisbileOnPage){
-   //  //   currentlyVisibleState = <MonthSelectionForm onNewSelectedMonth = {this.handleAddingMonthSelectionToMonth}/>
-   //  // }
 
     return(
       <React.Fragment>
